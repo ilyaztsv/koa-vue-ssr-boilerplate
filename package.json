@@ -1,0 +1,77 @@
+{
+  "name": "koa-vue-ssr-boilerplate",
+  "version": "0.0.1",
+  "description": "Vue boilerplate with server-side rendering by Koa2",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --no-cache --config ./jest.config.js",
+    "coverage": "npm run test -- --coverage",
+    "lint": "eslint --ext .js --fix . && prettier --list-different --write \"**/*.{js,jsx,json}\"",
+    "flow": "glow",
+    "ci": "npm run flow && npm run lint && npm run coverage && npm run build",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js --progress --hide-modules",
+    "precommit": "npm run flow && npm run lint && npm run test"
+  },
+  "precommit": "precommit",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyaztsv/koa-vue-ssr-boilerplate.git"
+  },
+  "keywords": [
+    "koa2",
+    "vuejs2",
+    "ssr",
+    "javascript",
+    "boilerplate"
+  ],
+  "author": "Ilya Zaytsev <https://twitter.com/ilyaztsv> (https://github.com/ilyaztsv)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ilyaztsv/koa-vue-ssr-boilerplate/issues"
+  },
+  "homepage": "https://github.com/ilyaztsv/koa-vue-ssr-boilerplate#readme",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.42",
+    "@babel/plugin-syntax-flow": "^7.0.0-beta.42",
+    "@babel/plugin-transform-flow-strip-types": "^7.0.0-beta.42",
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "@babel/preset-flow": "^7.0.0-beta.42",
+    "@babel/preset-stage-0": "^7.0.0-beta.42",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^8.2.2",
+    "babel-jest": "^23.0.0-alpha.0",
+    "babel-loader": "^7.1.4",
+    "cross-env": "^5.1.4",
+    "eslint": "^4.8.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-flowtype-errors": "^3.5.1",
+    "eslint-plugin-prettier": "^2.5.0",
+    "flow-bin": "^0.68.0",
+    "glow": "^1.2.2",
+    "jest": "^22.4.2",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.10.2",
+    "webpack": "^3.11.0",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.42",
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
+    "koa": "^2.5.0",
+    "koa-advanced-handle-error": "^0.1.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2",
+    "lodash": "^4.17.5",
+    "pino": "^4.14.0",
+    "raven": "^2.4.2",
+    "vue": "^2.5.16",
+    "vue-router": "^3.0.1",
+    "vue-server-renderer": "^2.5.16",
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0"
+  }
+}
