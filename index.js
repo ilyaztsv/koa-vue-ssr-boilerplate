@@ -1,29 +1,32 @@
 const bluebird = require('bluebird');
-import Server from './src/models/server';
+const Server = require('./src/models/server').default;
 
 global.Promise = bluebird;
 
-const server = new Server();
+const server = function(config) {
+  const server = new Server(config);
 
-const koaStatic = require('koa-static');
-const path = require('path');
-const rootPath = path.resolve(__dirname, './');
-const resolve = file => path.resolve(rootPath, file);
-const serve = filepath => koaStatic(resolve(filepath));
-server.app.use(serve('www'));
+  const koaStatic = require('koa-static');
+  const path = require('path');
+  const rootPath = path.resolve(__dirname, './');
+  const resolve = file => path.resolve(rootPath, file);
+  const serve = filepath => koaStatic(resolve(filepath));
+  server.app.use(serve('www'));
 
-server.start();
-
-function closeConnection() {
-  server.close();
-}
-
-process.on('message', function(msg) {
-  if (msg === 'shutdown') {
-    closeConnection();
+  server.start();
+  function closeConnection() {
+    server.close();
   }
-});
+  process.on('message', function(msg) {
+    if (msg === 'shutdown') {
+      closeConnection();
+    }
+  });
 
-process.on('SIGTERM', () => {
-  closeConnection();
-});
+  process.on('SIGTERM', function() {
+    closeConnection();
+  });
+};
+
+module.exports.default = server;
+module.exports.server = server;

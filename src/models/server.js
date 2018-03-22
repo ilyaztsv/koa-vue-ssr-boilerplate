@@ -1,8 +1,8 @@
 // @flow
 
-const Raven = require('raven');
-const pino = require('pino');
-const Koa = require('koa');
+import Raven from 'raven';
+import pino from 'pino';
+import Koa from 'koa';
 import Application from 'koa';
 import type { ServerType } from 'koa';
 import type { Logger } from 'pino';

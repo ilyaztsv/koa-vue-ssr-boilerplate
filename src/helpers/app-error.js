@@ -1,4 +1,5 @@
 // @flow
+
 import ServerError from '../models/server-error';
 import type { Context } from 'koa';
 

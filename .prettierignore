@@ -3,7 +3,7 @@ dist/**
 coverage/**
 flow-typed/**
 www/**
-webpack.config.js
 package-lock.json
 package.json
 bundle.js
+example/**

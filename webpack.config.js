@@ -6,22 +6,19 @@ const resolve = dir => path.join(__dirname, './', dir);
 const isProd = process.env.NODE_ENV === 'production';
 
 const webpackConfig = {
+  devtool: isProd ? 'source-map' : 'eval',
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, './'),
-    filename: 'bundle.js'
+    filename: 'lib/index.js',
+    libraryTarget: 'umd'
   },
   resolve: {
     extensions: ['.js', '.json'],
     modules: [resolve('src'), resolve('node_modules')]
   },
-  target: 'node', // important in order not to bundle built-in modules like path, fs, etc.
-  externals: [
-    nodeExternals({
-      // this WILL include `jquery` and `webpack/hot/dev-server` in the bundle, as well as `lodash/*`
-      whitelist: ['bluebird']
-    })
-  ],
+  target: 'node',
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
@@ -46,17 +43,5 @@ const webpackConfig = {
   },
   plugins: []
 };
-
-if (isProd) {
-  webpackConfig.plugins
-    .push
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false
-    //   },
-    //   sourceMap: true
-    // })
-    ();
-}
 
 module.exports = webpackConfig;

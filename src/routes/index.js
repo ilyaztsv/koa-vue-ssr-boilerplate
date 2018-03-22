@@ -10,10 +10,10 @@ const { PassThrough } = require('stream');
 
 const router: Router = new KoaRouter();
 
-module.exports = function(viewRenderer: ViewRenderer, isProd: boolean) {
+export default (viewRenderer: ViewRenderer, isProd: boolean) => {
   const renderContent = async (ctx: Context, context: Object) => {
     if (!viewRenderer.renderer) {
-      appError(ctx, 'ViewRenderer не успел инициализироваться.');
+      appError(ctx, 'An error occured during ViewRenderer init.');
       return;
     }
 
@@ -26,13 +26,13 @@ module.exports = function(viewRenderer: ViewRenderer, isProd: boolean) {
       // $FlowFixMe
       ctx.body.end(content);
     } catch (err) {
-      appError(ctx, 'Ошибка при рендеринге контента: ', 500, err);
+      appError(ctx, 'An error occured during rendering: ', 500, err);
     }
   };
 
   router.get('/', async (ctx: Context, next) => {
     const context = {
-      title: `Главная страница`,
+      title: `Page title`,
       url: ctx.path
     };
 

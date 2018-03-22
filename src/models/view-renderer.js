@@ -1,6 +1,7 @@
 // @flow
-const fs = require('fs');
-const path = require('path');
+
+import fs from 'fs';
+import path from 'path';
 const VueServerRenderer = require('vue-server-renderer');
 import type { ViewRendererOptions } from '../types/view-renderer-options';
 import Application from 'koa';
@@ -15,7 +16,7 @@ export default class ViewRenderer {
 
   constructor(app: Application, options: ViewRendererOptions) {
     this.baseDir = options.baseDir;
-    this.template = options.template;
+    this.template = fs.readFileSync(options.template, 'utf-8');
     this.bundle = options.bundle;
     this.clientManifest = options.clientManifest;
 
