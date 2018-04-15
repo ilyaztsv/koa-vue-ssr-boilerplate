@@ -1,17 +1,13 @@
-// @flow
-
 import ViewRenderer from '../models/view-renderer';
 import Router from 'koa-router';
-import Application from 'koa';
-import type { Context } from 'koa';
 import appError from '../helpers/app-error';
 const KoaRouter = require('koa-router');
 const { PassThrough } = require('stream');
 
-const router: Router = new KoaRouter();
+const router = new KoaRouter();
 
-export default (viewRenderer: ViewRenderer, isProd: boolean) => {
-  const renderContent = async (ctx: Context, context: Object) => {
+export default (viewRenderer, isProd) => {
+  const renderContent = async (ctx, context) => {
     if (!viewRenderer.renderer) {
       appError(ctx, 'An error occured during ViewRenderer init.');
       return;
@@ -21,16 +17,15 @@ export default (viewRenderer: ViewRenderer, isProd: boolean) => {
     ctx.body = new PassThrough();
 
     try {
-      const content: string = await viewRenderer.render(context);
+      const content = await viewRenderer.render(context);
 
-      // $FlowFixMe
       ctx.body.end(content);
     } catch (err) {
       appError(ctx, 'An error occured during rendering: ', 500, err);
     }
   };
 
-  router.get('/', async (ctx: Context, next) => {
+  router.get('/', async (ctx, next) => {
     const context = {
       title: `Page title`,
       url: ctx.path

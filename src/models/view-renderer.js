@@ -1,20 +1,16 @@
-// @flow
-
 import fs from 'fs';
 import path from 'path';
 const VueServerRenderer = require('vue-server-renderer');
-import type { ViewRendererOptions } from '../types/view-renderer-options';
-import Application from 'koa';
 
 export default class ViewRenderer {
-  baseDir: string;
-  template: string;
-  bundle: string;
-  clientManifest: string;
-  renderer: any;
-  ready: any;
+  baseDir;
+  template;
+  bundle;
+  clientManifest;
+  renderer;
+  ready;
 
-  constructor(app: Application, options: ViewRendererOptions) {
+  constructor(app, options) {
     this.baseDir = options.baseDir;
     this.template = fs.readFileSync(options.template, 'utf-8');
     this.bundle = options.bundle;
@@ -30,7 +26,7 @@ export default class ViewRenderer {
     }
   }
 
-  createRenderer(): any {
+  createRenderer() {
     return VueServerRenderer.createBundleRenderer(this.bundle, {
       template: this.template,
       basedir: this.baseDir,
@@ -38,7 +34,7 @@ export default class ViewRenderer {
     });
   }
 
-  render(context: Object): Promise<string> {
+  render(context) {
     return new Promise((resolve, reject) => {
       this.renderer.renderToString(context, (err, html) => {
         if (err) {

@@ -1,13 +1,7 @@
-// @flow
-
 import Raven from 'raven';
 import pino from 'pino';
 import Koa from 'koa';
 import Application from 'koa';
-import type { ServerType } from 'koa';
-import type { Logger } from 'pino';
-import type { ServerOptions } from '../types/server-options';
-import type { ViewRendererOptions } from '../types/view-renderer-options';
 import ServerError from './server-error';
 import ViewRenderer from './view-renderer';
 import createRouter from '../routes';
@@ -16,15 +10,15 @@ import createRouter from '../routes';
 // const defineViewRenderer = require('../middlewares/define-view-renderer');
 
 export default class Server {
-  _isProductionMode: boolean;
-  _port: number;
-  _app: Application;
-  _logger: Logger;
-  _raven: any;
-  _viewRenderer: ViewRenderer;
-  _instance: ServerType;
+  _isProductionMode;
+  _port;
+  _app;
+  _logger;
+  _raven;
+  _viewRenderer;
+  _instance;
 
-  constructor(options: ServerOptions) {
+  constructor(options) {
     this._isProductionMode = options.productionMode;
     this._port = options.port;
     this._app = new Koa();
@@ -36,27 +30,27 @@ export default class Server {
     this._initRouter();
   }
 
-  get isProductionMode(): boolean {
+  get isProductionMode() {
     return this._isProductionMode;
   }
 
-  get port(): number {
+  get port() {
     return this._port;
   }
 
-  get app(): Application {
+  get app() {
     return this._app;
   }
 
-  get logger(): Logger {
+  get logger() {
     return this._logger;
   }
 
-  get raven(): any {
+  get raven() {
     return this._raven;
   }
 
-  get viewRenderer(): ViewRenderer {
+  get viewRenderer() {
     return this._viewRenderer;
   }
 
@@ -109,7 +103,7 @@ export default class Server {
     }
   }
 
-  _initViewRenderer(options: ViewRendererOptions) {
+  _initViewRenderer(options) {
     try {
       this._viewRenderer = new ViewRenderer(this._app, options);
     } catch (err) {

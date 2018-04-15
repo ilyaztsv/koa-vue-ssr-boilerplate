@@ -1,15 +1,9 @@
-// @flow
-
 export default class ServerError extends Error {
-  statusCode: number;
-  originalStack: string | null;
+  statusCode;
+  originalStack;
 
-  constructor(
-    message: string,
-    statusCode?: number = 500,
-    originalError?: Error
-  ) {
-    const msg: string =
+  constructor(message, statusCode = 500, originalError) {
+    const msg =
       message +
       (originalError && originalError.message ? originalError.message : '');
     super(msg);

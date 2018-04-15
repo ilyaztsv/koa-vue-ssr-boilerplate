@@ -1,7 +1,6 @@
 node_modules/**
 dist/**
 coverage/**
-flow-typed/**
 www/**
 package-lock.json
 package.json
